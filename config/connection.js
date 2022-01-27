@@ -5,17 +5,17 @@ connection = mysql2.createConnection( {
     host: 'localhost',
     port: 3306,
     user: 'root',
-    database: 'employees_db',
+    databasee: 'employees_db',
     multipleStatements: true
 });
+
+console.log(chalk.bold.bgGreen.black(`WELCOME TO EMPLOYEE TRACKER!`));
 
 connection.connect((err) => {
     if (err) {
         console.log(chalk.white.bgRed(err));
         return;
     }
-
-    console.log(chalk.bold.bgGreen.black('WELCOME TO EMPLOYEE TRACKER!!'));
-})
+});
 
 module.exports = connection;
