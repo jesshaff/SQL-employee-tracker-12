@@ -1,6 +1,6 @@
-const mysql = require('mysql');
+const mysql2 = require('mysql2');
 const inquirer = require('inquirer');
 const chalk = require('chalk');
-const cTable = require('console.table');
 const connection = require('./config/connection');
 
+console.log(chalk.blue('Hello World!'));
