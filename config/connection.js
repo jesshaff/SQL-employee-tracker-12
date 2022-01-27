@@ -15,7 +15,7 @@ connection.connect((err) => {
         return;
     }
 
-    console.log(chalk.green(`Connected to DB!!`));
+    console.log(chalk.bold.bgGreen.black('WELCOME TO EMPLOYEE TRACKER!!'));
 })
 
 module.exports = connection;
