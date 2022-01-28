@@ -6,7 +6,7 @@ const connection = require('./config/connection');
 
 // Main menu functions
 const startApp = () => {
-    inquirer.prompt( {
+    inquirer.prompt({
         name: 'action',
         type: 'list',
         loop: false,
@@ -29,31 +29,24 @@ const startApp = () => {
             case 'View all departments':
                 viewAllDepartments();
                 break;
-        
             case 'View all roles':
                 viewAllRoles();
                 break;
-        
             case 'View all employees':
                 viewAllEmployees();
                 break;
-
             case 'Add a department':
                 addDepartment();
                 break;
-
             case 'Add a role':
                 addRole();
                 break;
-
             case 'Add an employee':
                 addEmployee();
                 break;
-
             case 'Update an employee role':
                 updateEmployeeRole();
                 break;
-
             case 'Go back to main menu':
                 console.log('Returning to main menu');
                 connection.end();
@@ -96,3 +89,4 @@ function viewAllEmployees() {
     })
 };
 
+startApp();
