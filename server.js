@@ -1,92 +1,98 @@
 const mysql2 = require('mysql2');
 const inquirer = require('inquirer');
 const chalk = require('chalk');
-const connection = require('./config/connection');
 const consoleTable = require('console.table')
+const connection = require('./config/connection');
 
 // Main menu functions
+const startApp = () => {
+    inquirer.prompt( {
+        name: 'action',
+        type: 'list',
+        loop: false,
+        message: 'MAIN MENU',
+        choices: [
+            'View all departments',
+            'View all roles',
+            'View all employees',
+            'Add a department',
+            'Add a role',
+            'Add an employee',
+            'Update an employee role',
+            'Go back to main menu'
+        ]
+    })
+    .then((answer) => {
 
-inquirer
-.prompt( {
-    name: 'action',
-    type: 'list',
-    loop: false,
-    message: 'MAIN MENU',
-    choices: [
-        'View all employees',
-        'View all employees by department',
-        'view all employees by role',
-        'view all employees by manager',
-        'Add employee',
-        'Add role',
-        'Add department',
-        'Update employee role',
-        'Update employee manager',
-        'Delete employee',
-        'Delete role',
-        'Delete department'
-    ]
-})
-.then((answer) => {
-
-    // Switch case depending on user option
-    switch (answer.action) {
-        case 'View all employees':
-            viewAllEmp();
-            break;
+        // Switch case depending on user option
+        switch (answer.action) {
+            case 'View all departments':
+                viewAllDepartments();
+                break;
         
-        case 'View all employees by department':
-            viewAllEmpByDept();
-            break;
+            case 'View all roles':
+                viewAllRoles();
+                break;
         
-        case 'View all employees by role':
-            viewAllEmpByRole();
-            break;
+            case 'View all employees':
+                viewAllEmployees();
+                break;
 
-        case 'Add employee':
-            addEmp();
-            break;
-        
-        case 'Add department':
-            addDept();
-            break;
-        
-        case 'Add role':
-            addRole();
-            break;
+            case 'Add a department':
+                addDepartment();
+                break;
 
-        case 'Update employee role':
-            updateEmpRole();
-            break;
+            case 'Add a role':
+                addRole();
+                break;
 
-        case 'Update employee manager':
-            updateEmpMan();
-            break;
+            case 'Add an employee':
+                addEmployee();
+                break;
 
-        case 'View all employees by manager':
-            viewAllEmpByMan();
-            break;
+            case 'Update an employee role':
+                updateEmployeeRole();
+                break;
 
-        case 'Delete employee':
-            deleteEmp();
-            break;
+            case 'Go back to main menu':
+                console.log('Returning to main menu');
+                connection.end();
+                break;
+        };
+    });
+};
 
-        case 'Delete role':
-            deleteRole();
-            break;
+// View all departments in the database
+function viewAllDepartments() {
+    var query = 'SELECT * FROM department';
+    connection.query(query, function(err, res) {
+        if (err) throw err;
+        console.log(res.length + ' departments found!');
+        console.table('All departments:', res);
+        startApp();
+    })
+};
 
-        case 'Delete department':
-            deleteDep();
-            break;
-    }
-});
+
+// View all roles in the database
+function viewAllRoles () {
+    var query = 'SELECT * FROM role';
+    connection.query(query, function(err, res) {
+        if (err) throw err;
+        console.log(res.length + ' roles found!');
+        console.table('All roles:', res);
+        startApp();
+    })
+};
 
 // View all employees in the database
-function viewAllEmp() {
+function viewAllEmployees() {
     var query = 'SELECT * FROM employee';
     connection.query(query, function(err, res) {
         if (err) throw err;
         console.log(res.length + ' employees found!');
         console.table('All employees:', res);
+        startApp();
     })
 };
+

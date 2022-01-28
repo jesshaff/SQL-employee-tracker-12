@@ -10,11 +10,14 @@ connection = mysql2.createConnection( {
 });
 
 // Connects to sql server and sql database
-connection.connect(function(err){
-    if (err) throw err;
-})
+connection.connect((err) => {
+    startApp();
+    if (err) {
+        console.log(chalk.white.bgRed(err));
+        return;
+    }
 
-console.log(chalk.bold.green(`
+    console.log(chalk.bold.green(`
 ╔═══╗─────╔╗──────────────╔═╗╔═╗
 ║╔══╝─────║║──────────────║║╚╝║║
 ║╚══╦╗╔╦══╣║╔══╦╗─╔╦══╦══╗║╔╗╔╗╠══╦═╗╔══╦══╦══╦═╗
@@ -23,12 +26,6 @@ console.log(chalk.bold.green(`
 ╚═══╩╩╩╣╔═╩═╩══╩═╗╔╩══╩══╝╚╝╚╝╚╩╝╚╩╝╚╩╝╚╩═╗╠══╩╝
 ───────║║──────╔═╝║─────────────────────╔═╝║
 ───────╚╝──────╚══╝─────────────────────╚══╝`));
-
-connection.connect((err) => {
-    if (err) {
-        console.log(chalk.white.bgRed(err));
-        return;
-    }
 });
 
 module.exports = connection;
