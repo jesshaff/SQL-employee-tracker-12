@@ -5,11 +5,24 @@ connection = mysql2.createConnection( {
     host: 'localhost',
     port: 3306,
     user: 'root',
-    databasee: 'employees_db',
+    database: 'employees_db',
     multipleStatements: true
 });
 
-console.log(chalk.bold.bgGreen.black(`WELCOME TO EMPLOYEE TRACKER!`));
+// Connects to sql server and sql database
+connection.connect(function(err){
+    if (err) throw err;
+})
+
+console.log(chalk.bold.green(`
+╔═══╗─────╔╗──────────────╔═╗╔═╗
+║╔══╝─────║║──────────────║║╚╝║║
+║╚══╦╗╔╦══╣║╔══╦╗─╔╦══╦══╗║╔╗╔╗╠══╦═╗╔══╦══╦══╦═╗
+║╔══╣╚╝║╔╗║║║╔╗║║─║║║═╣║═╣║║║║║║╔╗║╔╗╣╔╗║╔╗║║═╣╔╝
+║╚══╣║║║╚╝║╚╣╚╝║╚═╝║║═╣║═╣║║║║║║╔╗║║║║╔╗║╚╝║║═╣║
+╚═══╩╩╩╣╔═╩═╩══╩═╗╔╩══╩══╝╚╝╚╝╚╩╝╚╩╝╚╩╝╚╩═╗╠══╩╝
+───────║║──────╔═╝║─────────────────────╔═╝║
+───────╚╝──────╚══╝─────────────────────╚══╝`));
 
 connection.connect((err) => {
     if (err) {

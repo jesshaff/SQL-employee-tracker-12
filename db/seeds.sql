@@ -1,3 +1,5 @@
+USE employee_db;
+
 INSERT INTO department (department_name)
 VALUES
 ('Human Resources'),
@@ -18,10 +20,8 @@ VALUES
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES
-('Kristin', 'Mercer', 1),
-('Reid', 'Huff', 2),
-('Taylor', 'Chambers', 3),
-('Rece', 'Nash', 4),
-('Marshall', 'Russell', 5);
-
---  UPDATE `employees_db`.`employee` SET `manager_id` = `1` WHERE (`id` > '1');
+('Kristin', 'Mercer', 1, 1),
+('Reid', 'Huff', 2, 2),
+('Taylor', 'Chambers', 3, 3),
+('Rece', 'Nash', 4, 3),
+('Marshall', 'Russell', 5, 5);
