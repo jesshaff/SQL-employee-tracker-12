@@ -47,6 +47,15 @@ const startApp = () => {
             case 'Update an employee role':
                 updateEmployeeRole();
                 break;
+            case 'Delete a department':
+                deleteDepartment();
+                break;
+            case 'Delete a role':
+                deleteRole();
+                break;
+            case 'Delete an employee':
+                deleteEmployee();
+                break;
             case 'Go back to main menu':
                 console.log(chalk.green('Returning to main menu'));
                 startApp();
@@ -320,7 +329,7 @@ function promptUpdateEmployee(employeeList, roleList) {
       choices: employeeList,
     },
     {
-      type: 'list",
+      type: 'list',
       name: 'role_id',
       message: 'Which role do you want to update?',
       choices: roleList,
