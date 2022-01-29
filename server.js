@@ -19,6 +19,9 @@ const startApp = () => {
             'Add a role',
             'Add an employee',
             'Update an employee role',
+            'Delete a department',
+            'Delete a role',
+            'Delete an employee',
             'Go back to main menu'
         ]
     })
@@ -352,8 +355,52 @@ function promptUpdateEmployee(employeeList, roleList) {
 }
 
 // TODO: Delete department
+deleteDepartment = () => {
+  var deptQuery = `SELECT * FROM department`;
+  connection.query(deptQuery, (err, res) => {
+    if (err) throw err;
+
+    inquirer.prompt([
+      {
+        type: 'list',
+        name: 'department',
+        choices: function() {
+          let choiceArray = res.map(choice => choice.department_name);
+          return choiceArray;
+        },
+        message: 'Select a Department to remove:'
+      }
+    ])
+    .then((answer) => {
+      connection.query(`DELETE FROM department WHERE ?` , {department_name: answer.department});
+      startApp();
+    });
+  });
+};
 
 // TODO: Delete role
+deleteRole = () => {
+  var roleQuery = `SELECT * FROM role`;
+  connection.query(roleQuery, (err, res) => {
+    if (err) throw err;
+
+    inquirer.prompt([
+      {
+        type: 'list',
+        name: 'role',
+        choices: function() {
+          let choiceArray = res.map(choice => choice.title);
+          return choiceArray;
+        },
+        message: 'Select a Role to remove:'
+      }
+    ])
+    .then((answer) => {
+      connection.query(`DELETE FROM role WHERE ?` , {title: answer.role});
+      startApp();
+    });
+  });
+};
 
 // TODO: Delete employee
 
