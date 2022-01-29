@@ -263,13 +263,13 @@ function addEmployee() {
   });
 };
 
-// Update an employee role
+// TODO: Update an employee role
 
 
-// Delete department
+// TODO: Delete department
 
-// Delete role
+// TODO: Delete role
 
-// Delete employee
+// TODO: Delete employee
 
 startApp();
