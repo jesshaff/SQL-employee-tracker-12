@@ -49,7 +49,7 @@ const startApp = () => {
                 break;
             case 'Go back to main menu':
                 console.log(chalk.green('Returning to main menu'));
-                connection.end();
+                startApp();
                 break;
         };
     });
@@ -263,8 +263,84 @@ function addEmployee() {
   });
 };
 
-// TODO: Update an employee role
+// Update an employee role
+function updateEmployeeRole() {
+  selectEmployees();
+}
 
+function selectEmployees() {
+  console.log('Updating an employee...');
+
+  var selectEmployeesQuery = `SELECT * FROM employee`;
+
+  connection.query(selectEmployeesQuery, function (err, res) {
+    if (err) throw err;
+
+    const employeeList = res.map(({ id, first_name, last_name }) => ({
+      value: id,
+      name: `${first_name} ${last_name}`,
+    }));
+
+    console.table(res);
+    console.log('Select an Employee To Update!\n');
+
+    selectRole(employeeList);
+  });
+}
+
+
+function selectRole(employeeList) {
+  console.log('Updating a role...');
+
+  var selectRolesQuery = `SELECT * FROM role`;
+  let roleList;
+
+  connection.query(selectRolesQuery, function (err, res) {
+    if (err) throw err;
+
+    roleList = res.map(({ id, title, salary }) => ({
+      value: id,
+      title: `${title}`,
+      salary: `${salary}`,
+    }));
+
+    console.table(res);
+    console.log('Select a role to Update!\n');
+
+    promptUpdateEmployee(employeeList, roleList);
+  });
+}
+
+function promptUpdateEmployee(employeeList, roleList) {
+  inquirer.prompt([
+    {
+      type: 'list',
+      name: 'employee_id',
+      message: 'Which employee do you want to set with the role?',
+      choices: employeeList,
+    },
+    {
+      type: 'list",
+      name: 'role_id',
+      message: 'Which role do you want to update?',
+      choices: roleList,
+    },
+  ]).then(function (answer) {
+    var employeeRoleQuery = `UPDATE employee SET role_id = ? WHERE id = ?`;    
+    connection.query(
+      employeeRoleQuery,
+      [answer.role_id, answer.employee_id],
+      function (err, res) {
+        if (err) throw err;
+
+        console.table(res);
+        console.log('Employee Role updated!');
+
+        startApp();
+      }
+    );    
+  });
+}
 
 // TODO: Delete department
 
