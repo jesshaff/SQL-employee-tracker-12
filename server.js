@@ -48,7 +48,7 @@ const startApp = () => {
                 updateEmployeeRole();
                 break;
             case 'Go back to main menu':
-                console.log('Returning to main menu');
+                console.log(chalk.green('Returning to main menu'));
                 connection.end();
                 break;
         };
@@ -195,5 +195,81 @@ function addRole() {
   });
 };
 
+// Create employee 
+function createEmployee() {
+  inquirer.prompt([
+    {
+      type: 'input',
+      name: 'first_name',
+      message: 'What is the new Employees name?',
+    },
+    {
+      type: 'input',
+      name: 'last_name',
+      message: 'What is the new Employees last name?',
+    },
+    {
+      type: 'input',
+      name: 'role_id',
+      message: 'What is the role ID for the new Employee?',
+    },
+    {
+      type: 'input',
+      name: 'manager_id',
+      message: 'What is the managers ID for the new Employee?',
+    },
+  ]).then(function (answer) {
+    console.log(answer);
+
+    var employeeAddQuery = `INSERT INTO employee SET ?`;
+
+    connection.query(
+      employeeAddQuery,
+      {
+        first_name: answer.first_name,
+        last_name: answer.last_name,
+        role_id: answer.role_id,
+        manager_id: answer.manager_id,
+      },
+      function (err, res) {
+        if (err) throw err;
+
+        console.table(res);
+        console.log(`${answer.first_name} ${answer.last_name} has been added successfully!\n`);
+
+        startApp();
+      }
+    );
+  });
+}
+
+// Add an employee
+function addEmployee() {
+  console.log('A new employee is being added...');
+  var employeeQuery = 'SELECT * FROM department';
+
+  connection.query(employeeQuery, function (err, res) {
+    if (err) throw err;
+
+    const availEmployees = res.map(({ id, first_name, last_name, role_id, manager_id }) => ({
+      value: id,
+      first_name: `${first_name}`,
+      last_name: `${last_name}`,
+      role_id: `${role_id}`,
+      manager_id: `${manager_id}`,
+    }));
+
+    createEmployee(availEmployees);
+  });
+};
+
+// Update an employee role
+
+
+// Delete department
+
+// Delete role
+
+// Delete employee
 
 startApp();
