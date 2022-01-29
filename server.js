@@ -93,9 +93,9 @@ function viewAllEmployees() {
 function createDepartment() {
     inquirer.prompt([
       {
-        type: "input",
-        name: "department_name",
-        message: "What is the new Department Name?",
+        type: 'input',
+        name: 'department_name',
+        message: 'What is the new Department name?',
       },
     ]).then(function (answer) {
       console.log(answer);
@@ -111,7 +111,7 @@ function createDepartment() {
           if (err) throw err;
   
           console.table(res);
-          console.log("Inserted successfully!\n");
+          console.log(`${answer.department_name} department has been added successfully!\n`);
   
           startApp();
         }
@@ -121,7 +121,7 @@ function createDepartment() {
 
 // Add a department
 function addDepartment() {
-    console.log('A department is being added...');
+    console.log('A new department is being added...');
     var deptQuery = 'SELECT * FROM department';
   
     connection.query(deptQuery, function (err, res) {
@@ -135,5 +135,65 @@ function addDepartment() {
       createDepartment(availDepartments);
     });
   };
+
+// Create role 
+function createRole() {
+  inquirer.prompt([
+    {
+      type: 'input',
+      name: 'title',
+      message: 'What is the new Role title?',
+    },
+    {
+      type: 'input',
+      name: 'salary',
+      message: 'What is the Salary for this role?',
+    },
+    {
+      type: 'input',
+      name: 'department_id',
+      message: 'What is the Department ID for this role?',
+    },
+  ]).then(function (answer) {
+    console.log(answer);
+
+    var roleAddQuery = `INSERT INTO role SET ?`;
+
+    connection.query(
+      roleAddQuery,
+      {
+        title: answer.title,
+        salary: answer.salary,
+        department_id: answer.department_id,
+      },
+      function (err, res) {
+        if (err) throw err;
+
+        console.table(res);
+        console.log(`${answer.title} role has been added successfully!\n`);
+
+        startApp();
+      }
+    );
+  });
+}
+
+// Add a role
+function addRole() {
+  console.log('A new role is being added...');
+  var roleQuery = 'SELECT * FROM department';
+
+  connection.query(roleQuery, function (err, res) {
+    if (err) throw err;
+
+    const availRoles = res.map(({ id, role_name }) => ({
+      value: id,
+      Role: `${role_name}`,
+    }));
+
+    createRole(availRoles);
+  });
+};
+
 
 startApp();

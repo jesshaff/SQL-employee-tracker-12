@@ -11,12 +11,12 @@ VALUES
 
 INSERT INTO role (title, salary, department_id)
 VALUES
-('HR Corporate Acct Rep', 120000, 1),
-('Litigation Assistant', 110000, 2),
-('Outside Sales Rep', 100000, 3),
-('Quality Engineer', 95000, 4),
-('Customer Service Rep', 60000, 5),
-('Accounts Payable', 65000, 6);
+('HR Corporate Acct Rep', 120000, 10),
+('Litigation Assistant', 110000, 20),
+('Outside Sales Rep', 100000, 30),
+('Quality Engineer', 95000, 40),
+('Customer Service Rep', 60000, 50),
+('Accounts Payable', 65000, 60);
 
 INSERT INTO employee (first_name, last_name, role_id, manager_id)
 VALUES
