@@ -378,7 +378,7 @@ deleteDepartment = () => {
   });
 };
 
-// TODO: Delete role
+// Delete role
 deleteRole = () => {
   var roleQuery = `SELECT * FROM role`;
   connection.query(roleQuery, (err, res) => {
@@ -402,6 +402,28 @@ deleteRole = () => {
   });
 };
 
-// TODO: Delete employee
+// Delete employee
+deleteEmployee = () => {
+  var employeeQuery = `SELECT * FROM employee`;
+  connection.query(employeeQuery, (err, res) => {
+    if (err) throw err;
+
+    inquirer.prompt([
+      {
+        type: 'list',
+        name: 'employee',
+        choices: function() {
+          let choiceArray = res.map(choice => choice.first_name);
+          return choiceArray;
+        },
+        message: 'Select an Employee to remove:'
+      }
+    ])
+    .then((answer) => {
+      connection.query(`DELETE FROM employee WHERE ?` , {first_name: answer.employee});
+      startApp();
+    });
+  });
+};
 
 startApp();
