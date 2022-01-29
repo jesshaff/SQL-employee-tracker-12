@@ -213,7 +213,7 @@ function createEmployee() {
     {
       type: 'input',
       name: 'first_name',
-      message: 'What is the new Employees name?',
+      message: 'What is the new Employees first name?',
     },
     {
       type: 'input',
