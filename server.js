@@ -22,7 +22,8 @@ const startApp = () => {
             'Delete a department',
             'Delete a role',
             'Delete an employee',
-            'Go back to main menu'
+            'Go back to main menu',
+            'Exit the application'
         ]
     })
     .then((answer) => {
@@ -63,6 +64,10 @@ const startApp = () => {
                 console.log(chalk.green('Returning to main menu'));
                 startApp();
                 break;
+            case 'Exit the application':
+              console.log(chalk.red('Exiting the application'));
+              connection.end();
+              break;
         };
     });
 };
@@ -72,7 +77,7 @@ function viewAllDepartments() {
     var query = 'SELECT * FROM department';
     connection.query(query, function(err, res) {
         if (err) throw err;
-        console.log(res.length + ' departments found!');
+        console.log(chalk.green(res.length + ' departments found!'));
         console.table('All departments:', res);
         startApp();
     })
@@ -84,7 +89,7 @@ function viewAllRoles () {
     var query = 'SELECT * FROM role';
     connection.query(query, function(err, res) {
         if (err) throw err;
-        console.log(res.length + ' roles found!');
+        console.log(chalk.green(res.length + ' roles found!'));
         console.table('All roles:', res);
         startApp();
     })
@@ -95,7 +100,7 @@ function viewAllEmployees() {
     var query = 'SELECT * FROM employee';
     connection.query(query, function(err, res) {
         if (err) throw err;
-        console.log(res.length + ' employees found!');
+        console.log(chalk.green(res.length + ' employees found!'));
         console.table('All employees:', res);
         startApp();
     })
@@ -123,7 +128,7 @@ function createDepartment() {
           if (err) throw err;
   
           console.table(res);
-          console.log(`${answer.department_name} department has been added successfully!\n`);
+          console.log(chalk.green(`${answer.department_name} department has been added successfully!\n`));
   
           startApp();
         }
@@ -167,7 +172,7 @@ function createRole() {
       message: 'What is the Department ID for this role?',
     },
   ]).then(function (answer) {
-    console.log(answer);
+    console.log(chalk.green(answer));
 
     var roleAddQuery = `INSERT INTO role SET ?`;
 
@@ -182,7 +187,7 @@ function createRole() {
         if (err) throw err;
 
         console.table(res);
-        console.log(`${answer.title} role has been added successfully!\n`);
+        console.log(chalik.green(`${answer.title} role has been added successfully!\n`));
 
         startApp();
       }
@@ -231,7 +236,7 @@ function createEmployee() {
       message: 'What is the managers ID for the new Employee?',
     },
   ]).then(function (answer) {
-    console.log(answer);
+    console.log(chalk.green(answer));
 
     var employeeAddQuery = `INSERT INTO employee SET ?`;
 
@@ -247,7 +252,7 @@ function createEmployee() {
         if (err) throw err;
 
         console.table(res);
-        console.log(`${answer.first_name} ${answer.last_name} has been added successfully!\n`);
+        console.log(chalk.green(`${answer.first_name} ${answer.last_name} has been added successfully!\n`));
 
         startApp();
       }
@@ -281,7 +286,7 @@ function updateEmployeeRole() {
 }
 
 function selectEmployees() {
-  console.log('Updating an employee...');
+  console.log(chalk.green('Updating an employee...'));
 
   var selectEmployeesQuery = `SELECT * FROM employee`;
 
@@ -294,7 +299,7 @@ function selectEmployees() {
     }));
 
     console.table(res);
-    console.log('Select an Employee To Update!\n');
+    console.log(chalk.green('Select an Employee To Update!\n'));
 
     selectRole(employeeList);
   });
@@ -302,7 +307,7 @@ function selectEmployees() {
 
 
 function selectRole(employeeList) {
-  console.log('Updating a role...');
+  console.log(chalk.green('Updating a role...'));
 
   var selectRolesQuery = `SELECT * FROM role`;
   let roleList;
@@ -317,7 +322,7 @@ function selectRole(employeeList) {
     }));
 
     console.table(res);
-    console.log('Select a role to Update!\n');
+    console.log(chalk.green('Select a role to Update!\n'));
 
     promptUpdateEmployee(employeeList, roleList);
   });
@@ -346,7 +351,7 @@ function promptUpdateEmployee(employeeList, roleList) {
         if (err) throw err;
 
         console.table(res);
-        console.log('Employee Role updated!');
+        console.log(chalk.green('Employee Role updated!'));
 
         startApp();
       }
@@ -354,7 +359,7 @@ function promptUpdateEmployee(employeeList, roleList) {
   });
 }
 
-// TODO: Delete department
+// Delete department
 deleteDepartment = () => {
   var deptQuery = `SELECT * FROM department`;
   connection.query(deptQuery, (err, res) => {
