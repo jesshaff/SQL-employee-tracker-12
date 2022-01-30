@@ -187,7 +187,7 @@ function createRole() {
         if (err) throw err;
 
         console.table(res);
-        console.log(chalik.green(`${answer.title} role has been added successfully!\n`));
+        console.log(chalk.green(`${answer.title} role has been added successfully!\n`));
 
         startApp();
       }
