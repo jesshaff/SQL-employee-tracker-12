@@ -10,6 +10,7 @@ A solution for managing a company's employees using node, inquirer, and MySQL.
 
 ## Table of Contents
 * [Preview](#Preview)
+* [Demonstration](#Demonstration)
 * [Installation](#Installation)
 * [Usage](#Usage)
 * [Contributing](#Contributing)
@@ -24,6 +25,15 @@ A solution for managing a company's employees using node, inquirer, and MySQL.
 
 ![View all employees by department and role](assets/images/employee-tracker-view-all-employees-by-department-and-role.png)
 
+## Demonstration 
+<br>
+The below video demonstrates how to use this application:
+<BR>
+
+[VIDEO DEMONSTRATION](https://www.awesomescreenshot.com/video/7102849?key=9c6f7768ada24da24a0501dda8f703ea)
+
+<br>
+
 ## Installation
 Run the following command to install all necessary dependencies:
 ```
@@ -37,12 +47,6 @@ npm install
 3. Select the next option as needed. 
 4. Use the exit option to close the application. 
 ```
-
-<br>
-The below video demonstrates how to use this application:
-<BR>
-
-[VIDEO DEMONSTRATION](https://www.awesomescreenshot.com/video/7102849?key=9c6f7768ada24da24a0501dda8f703ea)
 
 ## Contributing
 No contributions are needed at this time.
