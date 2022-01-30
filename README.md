@@ -21,7 +21,19 @@ npm install
 ```
 
 ## Usage
-Use the CLI interface to select employee management options. Menu options lead to additional prompts. Select the next option as needed. Use the exit optin to close the application. 
+```
+1. Use the CLI interface to select employee management options. 
+2. Menu options lead to additional prompts. 
+3. Select the next option as needed. 
+4. Use the exit option to close the application. 
+```
+
+<br>
+The below video demonstrates how to use this application:
+<BR>
+
+[VIDEO DEMONSTRATION](https://www.awesomescreenshot.com/video/7102774?key=a946708907f251efd3fba9bc60b19b62)
+
 
 ## Contributing
 No contributions are needed at this time.

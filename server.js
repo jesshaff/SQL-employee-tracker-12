@@ -4,6 +4,15 @@ const chalk = require('chalk');
 const consoleTable = require('console.table')
 const connection = require('./config/connection');
 
+const viewAllEmployeesQuery = `SELECT e.id, e.first_name AS "First Name", e.last_name AS "Last Name", r.title, d.department_name AS "Department", IFNULL(r.salary, 'No Data') AS "Salary", CONCAT(m.first_name," ",m.last_name) AS "Manager"
+FROM employee e
+LEFT JOIN role r 
+ON r.id = e.role_id 
+LEFT JOIN department d 
+ON d.id = r.department_id
+LEFT JOIN employee m ON m.id = e.manager_id
+ORDER BY e.id;`
+
 // Main menu functions
 const startApp = () => {
     inquirer.prompt({
@@ -12,6 +21,7 @@ const startApp = () => {
         loop: false,
         message: 'MAIN MENU',
         choices: [
+            'View all employees department and role details',
             'View all departments',
             'View all roles',
             'View all employees',
@@ -30,6 +40,9 @@ const startApp = () => {
 
         // Switch case depending on user option
         switch (answer.action) {
+            case 'View all employees department and role details':
+              viewAllEmployeesDeptsAndRoles();
+              break;
             case 'View all departments':
                 viewAllDepartments();
                 break;
@@ -70,6 +83,16 @@ const startApp = () => {
               break;
         };
     });
+};
+
+// View all employees department and role details
+function viewAllEmployeesDeptsAndRoles() {
+  connection.query(viewAllEmployeesQuery, function(err, res) {
+      if (err) throw err;
+      console.log(chalk.green(res.length + ' employees found!'));
+      console.table('All employees department and role details:', res);
+      startApp();
+  })
 };
 
 // View all departments in the database
